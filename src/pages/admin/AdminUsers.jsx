@@ -52,12 +52,12 @@ export default function AdminUsers() {
         .update({ email: newEmail.trim().toLowerCase() })
         .eq('user_id', editEmail.userId)
 
-      // Note : auth.users nécessite la service_role key, fait via Edge Function
-      const { data: sessionData } = await supabase.auth.getSession()
-      await supabase.functions.invoke('admin-update-user-email', {
-        body: { user_id: editEmail.userId, new_email: newEmail.trim().toLowerCase() },
-        headers: { Authorization: `Bearer ${sessionData.session?.access_token}` },
+      // Mettre à jour auth.users via fonction SQL sécurisée (SECURITY DEFINER)
+      const { error: rpcError } = await supabase.rpc('admin_update_user_email', {
+        target_user_id: editEmail.userId,
+        new_email: newEmail.trim().toLowerCase(),
       })
+      if (rpcError) throw rpcError
 
       setActionMsg({ type: 'success', text: `Email mis à jour pour ${newEmail.trim().toLowerCase()}` })
       setEditEmail(null)

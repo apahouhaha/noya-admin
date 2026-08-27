@@ -58,18 +58,14 @@ export default function AdminEstablishmentDetail() {
   }
 
   async function handleChangeEmail() {
-    if (!newEmail.trim()) return
+    if (!newEmail.trim() || !merchant?.user_id) return
     setEmailLoading(true)
     setEmailMsg(null)
     try {
-      const { error } = await supabase
-        .from('merchant_accounts')
-        .update({ email: newEmail.trim().toLowerCase() })
-        .eq('establishment_id', id)
-
-      // Mettre à jour aussi auth.users via Edge Function confirm directement (admin bypass)
-      const { data: authUser } = await supabase.auth.admin?.getUserById?.(merchant?.user_id) || {}
-
+      const { error } = await supabase.rpc('admin_update_user_email', {
+        target_user_id: merchant.user_id,
+        new_email: newEmail.trim().toLowerCase(),
+      })
       if (error) throw error
       setEmailMsg({ type: 'success', text: `Email mis à jour : ${newEmail.trim().toLowerCase()}` })
       setNewEmail('')
