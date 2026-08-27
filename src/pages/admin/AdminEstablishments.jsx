@@ -23,6 +23,7 @@ export default function AdminEstablishments() {
         merchant_accounts(email, is_premium, is_pioneer)
       `)
       .order('created_at', { ascending: false })
+    console.log('Establishments loaded:', data)
     setEstablishments(data || [])
     setLoading(false)
   }
