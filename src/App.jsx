@@ -8,10 +8,9 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/*" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/admin/*" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </BrowserRouter>
   )
 }
-// Bust - 1787842191

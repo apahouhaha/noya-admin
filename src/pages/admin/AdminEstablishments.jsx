@@ -7,7 +7,6 @@ const SURFACE = '#0F0C1B'
 const BORDER = 'rgba(255,255,255,0.06)'
 
 export default function AdminEstablishments() {
-  console.log('AdminEstablishments component rendering')
   const navigate = useNavigate()
   const [establishments, setEstablishments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -24,7 +23,6 @@ export default function AdminEstablishments() {
         merchant_accounts(email, is_premium, is_pioneer)
       `)
       .order('created_at', { ascending: false })
-    console.log('Establishments loaded:', data)
     setEstablishments(data || [])
     setLoading(false)
   }
