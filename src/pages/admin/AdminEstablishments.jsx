@@ -7,6 +7,7 @@ const SURFACE = '#0F0C1B'
 const BORDER = 'rgba(255,255,255,0.06)'
 
 export default function AdminEstablishments() {
+  console.log('AdminEstablishments component rendering')
   const navigate = useNavigate()
   const [establishments, setEstablishments] = useState([])
   const [loading, setLoading] = useState(true)
