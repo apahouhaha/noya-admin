@@ -20,7 +20,7 @@ export default function AdminEstablishments() {
       .from('establishments')
       .select(`
         id, name, city, type, reservations_enabled, reservation_slug, phone, created_at,
-        merchant_accounts(email, is_premium, is_pioneer, user_id, profiles(email))
+        merchant_accounts(email, is_premium, is_pioneer, user_id)
       `)
       .order('created_at', { ascending: false })
     setEstablishments(data || [])
@@ -71,7 +71,7 @@ export default function AdminEstablishments() {
                     {merchant?.is_pioneer && <span style={{ background: 'rgba(0,242,255,0.1)', color: CYAN, fontSize: 10, padding: '2px 6px', borderRadius: 4, fontWeight: 700 }}>PIONEER</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
-                    {estab.city} · {estab.type} · {merchant?.email || merchant?.profiles?.email || 'Pas de marchand'}
+                    {estab.city} · {estab.type} · {merchant?.email || 'Pas de marchand'}
                   </div>
                 </div>
 
