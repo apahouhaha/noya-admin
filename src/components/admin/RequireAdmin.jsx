@@ -28,7 +28,7 @@ export default function RequireAdmin({ children }) {
     </div>
   )
 
-  if (status === 'forbidden') return <Navigate to="/" replace />
+  if (status === 'forbidden') return <Navigate to="/login" replace />
 
   return children
 }
