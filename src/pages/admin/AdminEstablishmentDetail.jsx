@@ -33,7 +33,7 @@ export default function AdminEstablishmentDetail() {
     setLoading(true)
     const [{ data: e }, { data: m }, { data: allResas }, { data: pendingResas }, { data: recent }] = await Promise.all([
       supabase.from('establishments').select('*').eq('id', id).maybeSingle(),
-      supabase.from('merchant_accounts').select('*').eq('establishment_id', id).maybeSingle(),
+      supabase.from('merchant_accounts').select('*, profiles(email)').eq('establishment_id', id).maybeSingle(),
       supabase.from('reservations').select('status, created_at, start_time, party_size').eq('establishment_id', id),
       supabase.from('reservations').select('id, created_at, start_time, party_size, client_name, client_email, status').eq('establishment_id', id).eq('status', 'pending').order('created_at', { ascending: true }),
       supabase.from('reservations').select('id, created_at, start_time, party_size, client_name, status').eq('establishment_id', id).order('created_at', { ascending: false }).limit(10),
@@ -299,7 +299,7 @@ export default function AdminEstablishmentDetail() {
 
       {/* Compte marchand */}
       <Section title="👤 Compte marchand">
-        <Row label="Email" value={merchant?.email || '—'} />
+        <Row label="Email" value={merchant?.email || merchant?.profiles?.email || '—'} />
         <Row label="Premium" value={merchant?.is_premium ? '✅ Oui' : '❌ Non'} />
         <Row label="Pioneer" value={merchant?.is_pioneer ? '✅ Oui' : '❌ Non'} />
         <Row label="User ID" value={<code style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>{merchant?.user_id || '—'}</code>} />
@@ -311,7 +311,7 @@ export default function AdminEstablishmentDetail() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         {/* Changer email */}
         <Section title="✉️ Changer l'email">
-          <p style={{ margin: '0 0 10px', fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>Actuel : <strong style={{ color: 'white' }}>{merchant?.email || '—'}</strong></p>
+          <p style={{ margin: '0 0 10px', fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>Actuel : <strong style={{ color: 'white' }}>{merchant?.email || merchant?.profiles?.email || '—'}</strong></p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <input type="email" placeholder="nouveau@email.com" value={newEmail} onChange={e => setNewEmail(e.target.value)}
               style={{ padding: '8px 12px', background: '#16122C', border: `1px solid ${BORDER}`, borderRadius: 8, color: 'white', fontSize: 13, outline: 'none' }} />
