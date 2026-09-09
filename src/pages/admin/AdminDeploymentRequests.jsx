@@ -158,6 +158,11 @@ export default function AdminDeploymentRequests() {
                         User ID : {req.sender_user_id.slice(0, 8)}...
                       </p>
                     )}
+                    {req.source_context === 'web_partner' && (
+                      <p style={{ margin: '4px 0 0', fontSize: 11, color: 'rgba(0,242,255,0.7)' }}>
+                        Source : Site web (partenaire)
+                      </p>
+                    )}
                   </div>
                 ) : (
                   <div>
@@ -167,6 +172,11 @@ export default function AdminDeploymentRequests() {
                     <p style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
                       📍 {req.target_business_city}
                     </p>
+                    {req.source_context === 'web_client' && (
+                      <p style={{ margin: '4px 0 0', fontSize: 11, color: 'rgba(189,0,255,0.7)' }}>
+                        Source : Site web (client)
+                      </p>
+                    )}
                   </div>
                 )}
               </div>
