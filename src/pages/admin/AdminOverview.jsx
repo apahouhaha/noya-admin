@@ -72,7 +72,7 @@ export default function AdminOverview() {
     { label: 'Commerçants', value: stats.merchants, icon: '🏪', color: '#BD00FF' },
     { label: 'Établissements', value: stats.establishments, icon: '📍', color: '#A855F7' },
     { label: 'Pionniers inscrits', value: stats.pioneers, icon: '⭐', color: '#D4A500' },
-    { label: 'iOS Waitlist', value: stats.ios, icon: '🍎', color: '#555' },
+    { label: 'Testeurs Bêta', value: stats.ios, icon: '🚀', color: '#00F2FF' },
     { label: 'Demandes déploiement', value: stats.deployments, icon: '📋', color: '#00FF88' },
   ]
 
@@ -194,17 +194,17 @@ export default function AdminOverview() {
           </a>
           <a href="/admin/ios-waitlist" style={{
             padding: 12,
-            background: 'rgba(85,85,85,0.1)',
-            border: `1px solid #555`,
+            background: 'rgba(0,242,255,0.1)',
+            border: `1px solid rgba(0,242,255,0.3)`,
             borderRadius: 8,
-            color: '#999',
+            color: '#00F2FF',
             textDecoration: 'none',
             textAlign: 'center',
             fontSize: 13,
             fontWeight: 600,
             cursor: 'pointer',
           }}>
-            🍎 iOS Waitlist
+            🚀 Testeurs Bêta
           </a>
         </div>
       </div>

@@ -55,7 +55,7 @@ export default function AdminPage() {
             { to: '/admin/utilisateurs', label: '👥 Utilisateurs' },
             { to: '/admin/deployments', label: '📋 Déploiement' },
             { to: '/admin/pioneers', label: '⭐ Pionniers' },
-            { to: '/admin/ios-waitlist', label: '🍎 iOS Waitlist' },
+            { to: '/admin/ios-waitlist', label: '🚀 Testeurs Bêta' },
           ].map(({ to, label, exact }) => (
             <NavLink
               key={to}
