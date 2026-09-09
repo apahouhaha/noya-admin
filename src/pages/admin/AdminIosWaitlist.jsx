@@ -16,8 +16,11 @@ export default function AdminIosWaitlist() {
     // Subscribe to real-time updates
     const subscription = supabase
       .channel('landing_email_signups')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'landing_email_signups', filter: `source=eq.ios_waitlist` }, (payload) => {
-        setSignups(prev => [payload.new, ...prev])
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'landing_email_signups' }, (payload) => {
+        // Filtrer en code pour ne garder que iOS
+        if (payload.new.source === 'ios_waitlist') {
+          setSignups(prev => [payload.new, ...prev])
+        }
       })
       .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'landing_email_signups' }, (payload) => {
         setSignups(prev => prev.filter(s => s.id !== payload.old.id))
