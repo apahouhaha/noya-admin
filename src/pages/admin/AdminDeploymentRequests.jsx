@@ -196,30 +196,6 @@ export default function AdminDeploymentRequests() {
 
               {/* Actions */}
               <div style={{ display: 'flex', gap: 8, marginLeft: 16, flexShrink: 0 }}>
-                {req.sender_type === 'merchant' && (
-                  <button
-                    onClick={() => handleAction(req)}
-                    style={{
-                      padding: '8px 14px',
-                      borderRadius: 6,
-                      border: `1px solid ${CYAN}`,
-                      background: 'transparent',
-                      color: CYAN,
-                      fontSize: 12,
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      transition: 'all 0.15s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(0,242,255,0.1)'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'transparent'
-                    }}
-                  >
-                    ✉️ Contacter
-                  </button>
-                )}
                 <button
                   onClick={() => handleDelete(req.id)}
                   disabled={deleting === req.id}
@@ -254,8 +230,4 @@ export default function AdminDeploymentRequests() {
   )
 }
 
-function handleAction(req) {
-  // Copier l'email dans le presse-papier
-  navigator.clipboard.writeText(req.target_email)
-  alert(`Email copié : ${req.target_email}`)
-}
+export default AdminDeploymentRequests
