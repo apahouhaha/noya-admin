@@ -6,6 +6,7 @@ import AdminEstablishmentDetail from './AdminEstablishmentDetail'
 import AdminUsers from './AdminUsers'
 import AdminDeploymentRequests from './AdminDeploymentRequests'
 import AdminPioneerLeads from './AdminPioneerLeads'
+import AdminIosWaitlist from './AdminIosWaitlist'
 
 const CYAN = '#00F2FF'
 const BG = '#050505'
@@ -53,6 +54,7 @@ export default function AdminPage() {
             { to: '/admin/utilisateurs', label: '👥 Utilisateurs' },
             { to: '/admin/deployments', label: '📋 Déploiement' },
             { to: '/admin/pioneers', label: '⭐ Pionniers' },
+            { to: '/admin/ios-waitlist', label: '🍎 iOS Waitlist' },
           ].map(({ to, label, exact }) => (
             <NavLink
               key={to}
@@ -80,6 +82,7 @@ export default function AdminPage() {
             <Route path="utilisateurs" element={<AdminUsers />} />
             <Route path="deployments" element={<AdminDeploymentRequests />} />
             <Route path="pioneers" element={<AdminPioneerLeads />} />
+            <Route path="ios-waitlist" element={<AdminIosWaitlist />} />
           </Routes>
         </main>
 
