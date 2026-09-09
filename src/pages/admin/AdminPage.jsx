@@ -5,6 +5,7 @@ import AdminEstablishments from './AdminEstablishments'
 import AdminEstablishmentDetail from './AdminEstablishmentDetail'
 import AdminUsers from './AdminUsers'
 import AdminDeploymentRequests from './AdminDeploymentRequests'
+import AdminPioneerLeads from './AdminPioneerLeads'
 
 const CYAN = '#00F2FF'
 const BG = '#050505'
@@ -51,6 +52,7 @@ export default function AdminPage() {
             { to: '/admin/etablissements', label: '🏪 Établissements' },
             { to: '/admin/utilisateurs', label: '👥 Utilisateurs' },
             { to: '/admin/deployments', label: '📋 Déploiement' },
+            { to: '/admin/pioneers', label: '⭐ Pionniers' },
           ].map(({ to, label, exact }) => (
             <NavLink
               key={to}
@@ -77,6 +79,7 @@ export default function AdminPage() {
             <Route path="etablissements/:id" element={<AdminEstablishmentDetail />} />
             <Route path="utilisateurs" element={<AdminUsers />} />
             <Route path="deployments" element={<AdminDeploymentRequests />} />
+            <Route path="pioneers" element={<AdminPioneerLeads />} />
           </Routes>
         </main>
 
