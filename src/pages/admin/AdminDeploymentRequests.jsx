@@ -150,14 +150,27 @@ export default function AdminDeploymentRequests() {
                 {/* Contenu selon le type */}
                 {req.sender_type === 'merchant' ? (
                   <div>
-                    <p style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 600, color: 'white' }}>
-                      Email : {req.target_email}
-                    </p>
-                    {req.sender_user_id && (
-                      <p style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
-                        User ID : {req.sender_user_id.slice(0, 8)}...
-                      </p>
-                    )}
+                    {req.target_email ? (
+                      <>
+                        <p style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 600, color: 'white' }}>
+                          Email : {req.target_email}
+                        </p>
+                        {req.sender_user_id && (
+                          <p style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
+                            User ID : {req.sender_user_id.slice(0, 8)}...
+                          </p>
+                        )}
+                      </>
+                    ) : req.target_business_name ? (
+                      <>
+                        <p style={{ margin: '0 0 4px', fontSize: 14, fontWeight: 600, color: 'white' }}>
+                          {req.target_business_name}
+                        </p>
+                        <p style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
+                          📍 {req.target_business_city}
+                        </p>
+                      </>
+                    ) : null}
                     {req.source_context === 'web_partner' && (
                       <p style={{ margin: '4px 0 0', fontSize: 11, color: 'rgba(0,242,255,0.7)' }}>
                         Source : Site web (partenaire)
