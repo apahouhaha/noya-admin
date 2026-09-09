@@ -229,5 +229,3 @@ export default function AdminDeploymentRequests() {
     </div>
   )
 }
-
-export default AdminDeploymentRequests
