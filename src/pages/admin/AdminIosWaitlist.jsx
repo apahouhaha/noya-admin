@@ -134,7 +134,7 @@ export default function AdminIosWaitlist() {
                     background: 'rgba(0,242,255,0.15)',
                     color: CYAN,
                   }}>
-                    🍎 iOS
+                    🚀 BÊTA
                   </span>
                   <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
                     {new Date(signup.created_at).toLocaleDateString('fr-FR', { 
