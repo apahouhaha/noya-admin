@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabase'
 import AdminEstablishments from './AdminEstablishments'
 import AdminEstablishmentDetail from './AdminEstablishmentDetail'
 import AdminUsers from './AdminUsers'
+import AdminDeploymentRequests from './AdminDeploymentRequests'
 
 const CYAN = '#00F2FF'
 const BG = '#050505'
@@ -49,6 +50,7 @@ export default function AdminPage() {
             { to: '/admin', label: '📊 Vue globale', exact: true },
             { to: '/admin/etablissements', label: '🏪 Établissements' },
             { to: '/admin/utilisateurs', label: '👥 Utilisateurs' },
+            { to: '/admin/deployments', label: '📋 Déploiement' },
           ].map(({ to, label, exact }) => (
             <NavLink
               key={to}
@@ -74,6 +76,7 @@ export default function AdminPage() {
             <Route path="etablissements" element={<AdminEstablishments />} />
             <Route path="etablissements/:id" element={<AdminEstablishmentDetail />} />
             <Route path="utilisateurs" element={<AdminUsers />} />
+            <Route path="deployments" element={<AdminDeploymentRequests />} />
           </Routes>
         </main>
 
