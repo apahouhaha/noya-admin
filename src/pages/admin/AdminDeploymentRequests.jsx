@@ -10,6 +10,7 @@ export default function AdminDeploymentRequests() {
   const [requests, setRequests] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all') // all, merchant, client
+  const [deleting, setDeleting] = useState(null)
 
   useEffect(() => {
     loadRequests()
@@ -18,6 +19,9 @@ export default function AdminDeploymentRequests() {
       .channel('deployment_notifications')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'deployment_notifications' }, (payload) => {
         setRequests(prev => [payload.new, ...prev])
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'deployment_notifications' }, (payload) => {
+        setRequests(prev => prev.filter(r => r.id !== payload.old.id))
       })
       .subscribe()
 
@@ -38,6 +42,26 @@ export default function AdminDeploymentRequests() {
       console.error('Erreur chargement demandes:', err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleDelete(id) {
+    if (!window.confirm('Supprimer cette demande ?')) return
+    
+    try {
+      setDeleting(id)
+      const { error } = await supabase
+        .from('deployment_notifications')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+      setRequests(prev => prev.filter(r => r.id !== id))
+    } catch (err) {
+      console.error('Erreur suppression:', err)
+      alert('Erreur lors de la suppression')
+    } finally {
+      setDeleting(null)
     }
   }
 
@@ -147,31 +171,58 @@ export default function AdminDeploymentRequests() {
                 )}
               </div>
 
-              {/* Action */}
-              <button
-                onClick={() => handleAction(req)}
-                style={{
-                  padding: '8px 16px',
-                  borderRadius: 6,
-                  border: `1px solid ${CYAN}`,
-                  background: 'transparent',
-                  color: CYAN,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.15s',
-                  marginLeft: 16,
-                  flexShrink: 0,
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = 'rgba(0,242,255,0.1)'
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'transparent'
-                }}
-              >
-                {req.sender_type === 'merchant' ? '✉️ Contacter' : '➕ Ajouter'}
-              </button>
+              {/* Actions */}
+              <div style={{ display: 'flex', gap: 8, marginLeft: 16, flexShrink: 0 }}>
+                {req.sender_type === 'merchant' && (
+                  <button
+                    onClick={() => handleAction(req)}
+                    style={{
+                      padding: '8px 14px',
+                      borderRadius: 6,
+                      border: `1px solid ${CYAN}`,
+                      background: 'transparent',
+                      color: CYAN,
+                      fontSize: 12,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'rgba(0,242,255,0.1)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'transparent'
+                    }}
+                  >
+                    ✉️ Contacter
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(req.id)}
+                  disabled={deleting === req.id}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: 6,
+                    border: `1px solid rgba(255,68,68,0.5)`,
+                    background: 'transparent',
+                    color: deleting === req.id ? 'rgba(255,68,68,0.5)' : '#ff4444',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: deleting === req.id ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.15s',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (deleting !== req.id) {
+                      e.target.style.background = 'rgba(255,68,68,0.1)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'transparent'
+                  }}
+                >
+                  {deleting === req.id ? '⏳' : '🗑️ Supprimer'}
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -180,14 +231,8 @@ export default function AdminDeploymentRequests() {
   )
 }
 
-async function handleAction(req) {
-  if (req.sender_type === 'merchant') {
-    // Copier l'email dans le presse-papier
-    navigator.clipboard.writeText(req.target_email)
-    alert(`Email copié : ${req.target_email}`)
-  } else {
-    // Afficher les infos pour ajouter le commerce
-    const message = `Commerce à ajouter:\n\nNom: ${req.target_business_name}\nVille: ${req.target_business_city}\n\nDemandé le: ${new Date(req.created_at).toLocaleDateString('fr-FR')}`
-    alert(message)
-  }
+function handleAction(req) {
+  // Copier l'email dans le presse-papier
+  navigator.clipboard.writeText(req.target_email)
+  alert(`Email copié : ${req.target_email}`)
 }
