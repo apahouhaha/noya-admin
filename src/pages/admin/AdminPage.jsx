@@ -55,7 +55,7 @@ export default function AdminPage() {
             { to: '/admin/utilisateurs', label: '👥 Utilisateurs' },
             { to: '/admin/deployments', label: '📋 Déploiement' },
             { to: '/admin/pioneers', label: '⭐ Pionniers' },
-            { to: '/admin/ios-waitlist', label: '🚀 Testeurs Bêta' },
+            { to: '/admin/beta-testers', label: '🚀 Testeurs Bêta' },
           ].map(({ to, label, exact }) => (
             <NavLink
               key={to}
@@ -83,7 +83,7 @@ export default function AdminPage() {
             <Route path="utilisateurs" element={<AdminUsers />} />
             <Route path="deployments" element={<AdminDeploymentRequests />} />
             <Route path="pioneers" element={<AdminPioneerLeads />} />
-            <Route path="ios-waitlist" element={<AdminIosWaitlist />} />
+            <Route path="beta-testers" element={<AdminIosWaitlist />} />
           </Routes>
         </main>
 

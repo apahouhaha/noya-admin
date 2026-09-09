@@ -192,7 +192,7 @@ export default function AdminOverview() {
           }}>
             ⭐ Pionniers
           </a>
-          <a href="/admin/ios-waitlist" style={{
+          <a href="/admin/beta-testers" style={{
             padding: 12,
             background: 'rgba(0,242,255,0.1)',
             border: `1px solid rgba(0,242,255,0.3)`,
