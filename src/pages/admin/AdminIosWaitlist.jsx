@@ -79,7 +79,7 @@ export default function AdminIosWaitlist() {
         <div>
           <h2 style={{ margin: '0 0 4px', fontSize: 20, fontWeight: 700 }}>Testeurs Bêta</h2>
           <p style={{ margin: 0, fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>
-            Utilisateurs inscrits pour la sortie iOS
+            Utilisateurs inscrits pour tester l'app en bêta
           </p>
         </div>
         <div style={{
