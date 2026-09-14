@@ -9,6 +9,9 @@ import AdminDeploymentRequests from './AdminDeploymentRequests'
 import AdminPioneerLeads from './AdminPioneerLeads'
 import AdminIosWaitlist from './AdminIosWaitlist'
 import AdminRealtimeMonitor from './AdminRealtimeMonitor'
+import AdminGrowth from './AdminGrowth'
+import AdminHealth from './AdminHealth'
+import AdminPerf from './AdminPerf'
 
 const CYAN = '#00F2FF'
 const BG = '#050505'
@@ -58,6 +61,9 @@ export default function AdminPage() {
             { to: '/admin/pioneers', label: '⭐ Pionniers' },
             { to: '/admin/beta-testers', label: '🚀 Testeurs Bêta' },
             { to: '/admin/realtime', label: '📡 Realtime' },
+            { to: '/admin/croissance', label: '📈 Croissance' },
+            { to: '/admin/sante', label: '🏥 Santé app' },
+            { to: '/admin/performances', label: '⚙️ Performances' },
           ].map(({ to, label, exact }) => (
             <NavLink
               key={to}
@@ -87,6 +93,9 @@ export default function AdminPage() {
             <Route path="pioneers" element={<AdminPioneerLeads />} />
             <Route path="beta-testers" element={<AdminIosWaitlist />} />
             <Route path="realtime" element={<AdminRealtimeMonitor />} />
+            <Route path="croissance" element={<AdminGrowth />} />
+            <Route path="sante" element={<AdminHealth />} />
+            <Route path="performances" element={<AdminPerf />} />
           </Routes>
         </main>
 
