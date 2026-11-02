@@ -32,7 +32,7 @@ export default function AdminEstablishmentDetail() {
   async function load() {
     setLoading(true)
     const [{ data: e }, { data: allResas }, { data: pendingResas }, { data: recent }] = await Promise.all([
-      supabase.from('establishments').select('*').eq('id', id).maybeSingle(),
+      supabase.from('establishments').select('id, name, type, street, zip_code, city, reservations_enabled, reservation_slug, reservation_phone, capacity_max, slot_duration, meal_duration_minutes, walk_in_percentage, auto_validation').eq('id', id).maybeSingle(),
       supabase.from('reservations').select('status, created_at, start_time, party_size').eq('establishment_id', id),
       supabase.from('reservations').select('id, created_at, start_time, party_size, client_name, client_email, status').eq('establishment_id', id).eq('status', 'pending').order('created_at', { ascending: true }),
       supabase.from('reservations').select('id, created_at, start_time, party_size, client_name, status').eq('establishment_id', id).order('created_at', { ascending: false }).limit(10),
@@ -305,7 +305,6 @@ export default function AdminEstablishmentDetail() {
         <Row label="Durée repas" value={`${estab.meal_duration_minutes || '—'} min`} />
         <Row label="Durée slot" value={`${estab.slot_duration || '—'} min`} />
         <Row label="Walk-in" value={`${estab.walk_in_percentage || 0}%`} />
-        <Row label="Email notifs" value={estab.reservation_notification_email || 'Même que le compte'} />
         <Row label="Tél. résa" value={estab.reservation_phone || '—'} />
       </Section>
 

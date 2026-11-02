@@ -30,7 +30,7 @@ export default function AdminOverview() {
       // Compter les établissements
       const { count: establishmentsCount } = await supabase
         .from('establishments')
-        .select('*', { count: 'exact', head: true })
+        .select('id', { count: 'exact', head: true })
 
       // Compter les inscriptions pioneers
       const { count: pioneersCount } = await supabase
