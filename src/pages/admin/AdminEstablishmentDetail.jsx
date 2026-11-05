@@ -312,7 +312,6 @@ export default function AdminEstablishmentDetail() {
       <Section title="👤 Compte marchand">
         <Row label="Email" value={merchant?.email || '—'} />
         <Row label="Premium" value={merchant?.is_premium ? '✅ Oui' : '❌ Non'} />
-        <Row label="Pioneer" value={merchant?.is_pioneer ? '✅ Oui' : '❌ Non'} />
         <Row label="User ID" value={<code style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>{merchant?.user_id || '—'}</code>} />
         <Row label="Étab. ID" value={<code style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>{estab.id}</code>} />
         <Row label="Slug URL" value={<code style={{ color: CYAN }}>{estab.reservation_slug || '—'}</code>} />
