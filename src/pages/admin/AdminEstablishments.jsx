@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 
-const CYAN = '#00F2FF'
 const SURFACE = '#0F0C1B'
 const BORDER = 'rgba(255,255,255,0.06)'
 
@@ -20,7 +19,7 @@ export default function AdminEstablishments() {
       .from('establishments')
       .select(`
         id, name, city, type, reservations_enabled, reservation_slug, phone, created_at,
-        merchant_accounts(email, is_premium, is_pioneer, user_id)
+        merchant_accounts(email, is_premium, user_id)
       `)
       .order('created_at', { ascending: false })
     setEstablishments(data || [])
@@ -68,7 +67,6 @@ export default function AdminEstablishments() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
                     <span style={{ fontWeight: 700, fontSize: 14 }}>{estab.name}</span>
                     {merchant?.is_premium && <span style={{ background: 'rgba(189,0,255,0.15)', color: '#BD00FF', fontSize: 10, padding: '2px 6px', borderRadius: 4, fontWeight: 700 }}>PREMIUM</span>}
-                    {merchant?.is_pioneer && <span style={{ background: 'rgba(0,242,255,0.1)', color: CYAN, fontSize: 10, padding: '2px 6px', borderRadius: 4, fontWeight: 700 }}>PIONEER</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>
                     {estab.city} · {estab.type} · {merchant?.email || 'Pas de marchand'}
